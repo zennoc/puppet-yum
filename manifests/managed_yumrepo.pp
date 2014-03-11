@@ -11,12 +11,19 @@ define yum::managed_yumrepo (
   $gpgkey_name    = '',
   $failovermethod = 'absent',
   $priority       = 99,
+  $protect        = 'absent',
   $exclude        = 'absent',
   $autokeyimport  = 'no',
   $includepkgs    = 'absent') {
 
   # ensure that everything is setup
   include yum::prerequisites
+
+  if $protect != 'absent' {
+    if ! defined(Yum::Plugin['protectbase']) {
+      yum::plugin { 'protectbase': }
+    }
+  }
 
   file { "/etc/yum.repos.d/${name}.repo":
     ensure  => file,
@@ -54,6 +61,7 @@ define yum::managed_yumrepo (
     gpgkey         => $gpgkey,
     failovermethod => $failovermethod,
     priority       => $priority,
+    protect        => $protect,
     exclude        => $exclude,
     includepkgs    => $includepkgs,
   }
