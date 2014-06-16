@@ -13,6 +13,7 @@ class yum::defaults ( ) inherits yum::params {
   if $yum::extrarepo =~ /jpackage6/ { include yum::repo::jpackage6 }
   if $yum::extrarepo =~ /remi/ { include yum::repo::remi }
   if $yum::extrarepo =~ /remi_php55/ { include yum::repo::remi_php55 }
+  if $yum::extrarepo =~ /remi_php56/ { include yum::repo::remi_php56 }
   if $yum::extrarepo =~ /tmz/ and $osver[0] != '4' { include yum::repo::tmz }
   if $yum::extrarepo =~ /webtatic/ { include yum::repo::webtatic }
   if $yum::extrarepo =~ /puppetlabs/ and $osver[0] != '4' { include yum::repo::puppetlabs }
@@ -23,7 +24,12 @@ class yum::defaults ( ) inherits yum::params {
   if $yum::extrarepo =~ /repoforgeextras/ { include yum::repo::repoforgeextras }
   if $yum::extrarepo =~ /integ_ganeti/ { include yum::repo::integ_ganeti }
   if $yum::extrarepo =~ /elrepo/ { include yum::repo::elrepo }
+  if $yum::extrarepo =~ /newrelic/ { include yum::repo::newrelic }
+  if $yum::extrarepo =~ /mod_pagespeed/ { include yum::repo::mod_pagespeed }
+  if $yum::extrarepo =~ /jenkins/ { include yum::repo::jenkins }
   if $yum::extrarepo =~ /centalt/ { include yum::repo::centalt }
+  if $yum::extrarepo =~ /elastix/ { include yum::repo::elastix }
+  if $yum::extrarepo =~ /mysql_community/ { include yum::repo::mysql_community }
 
   if $yum::bool_defaultrepo {
     case $::operatingsystem {
