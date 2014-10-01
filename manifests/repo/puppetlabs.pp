@@ -6,10 +6,13 @@ class yum::repo::puppetlabs (
   $baseurl_products     = '',
   $baseurl_dependencies = '',
 ) {
-  $osver = split($::operatingsystemrelease, '[.]')
+  $osver = $::operatingsystem ? {
+    'XenServer' => [ '5' ],
+    default     => split($::operatingsystemrelease, '[.]')
+  }
   $release = $::operatingsystem ? {
-    /(?i:Centos|RedHat|Scientific)/ => $osver[0],
-    default                         => '6',
+    /(?i:Centos|RedHat|Scientific|CloudLinux|XenServer)/ => $osver[0],
+    default                                              => '6',
   }
 
   $real_baseurl_products = $baseurl_products ? {
@@ -29,7 +32,7 @@ class yum::repo::puppetlabs (
     gpgcheck       => 1,
     failovermethod => 'priority',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-    gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-PGDG',
+    gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-puppetlabs',
     priority       => 1,
   }
 
@@ -44,7 +47,7 @@ class yum::repo::puppetlabs (
     gpgcheck       => 1,
     failovermethod => 'priority',
     gpgkey         => 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs',
-    gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-PGDG',
+    gpgkey_source  => 'puppet:///modules/yum/rpm-gpg/RPM-GPG-KEY-puppetlabs',
     priority       => 1,
   }
 
