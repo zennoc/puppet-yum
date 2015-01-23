@@ -12,6 +12,8 @@ class yum::params  {
 
   $clean_repos = false
 
+  $my_class = ''
+
   $plugins_config_dir = '/etc/yum/pluginconf.d'
 
   $source_repo_dir = undef
@@ -63,7 +65,7 @@ class yum::params  {
   $cron_email_host = 'localhost'
 
   $source = ''
-  $source_dir = ''
+  $source_dir = undef
   $source_dir_purge = false
   $template = ''
   $options = ''
